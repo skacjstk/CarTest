@@ -522,9 +522,8 @@ public class VehicleControl : MonoBehaviour
         }
         else if(!activeControl && canDrive)
         {
-           
             //수정 예정: AI 컨트롤러 적용
-
+            
         }
         else
         {

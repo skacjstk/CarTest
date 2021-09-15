@@ -9,11 +9,10 @@ public class WatchController : MonoBehaviour
 {
     public Text[] watch;
 
-    public static event EventHandler RaceStartEvent;
-    public event EventHandler RaceEndEvent;
+    public event EventHandler RaceStartEvent;
     private bool isRaceStart = false;
     public float startTime = 3;
-    public float raceTime = 0;
+    private float raceTime = 0;
     int minute = 0, second = 0;
     float another = 0;
 
@@ -60,9 +59,13 @@ public class WatchController : MonoBehaviour
     private void RaceStart()
     {
         isRaceStart = true;
-
         RaceStartEvent?.Invoke(this, EventArgs.Empty);
     }
+    private void RaceEnd()
+    {
+        
+    }
+
     private void Racing()
     {
         raceTime += Time.deltaTime;
@@ -73,5 +76,10 @@ public class WatchController : MonoBehaviour
         another = raceTime - (minute * 60 + second);
 
         watch[1].text = string.Format("{0:D2}:{1:D2}:{2:N0}", minute, second, another * 1000);
+    }
+
+    public float GetRaceTime()
+    {
+        return raceTime;
     }
 }
