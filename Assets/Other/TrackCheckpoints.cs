@@ -41,9 +41,18 @@ public class TrackCheckpoints : MonoBehaviour
             currentLapsList.Add(0);
         }
         //currentLaps 의 index 수를 carTransform 갯수와 동기화
-        
-    }
 
+        WatchController.RaceStartEvent += CanCarRaceStart;
+
+
+    }
+    private void CanCarRaceStart(object sender, EventArgs e)
+    {
+        foreach (Transform carTransform in carTransformList)
+        {
+            carTransform.GetComponent<VehicleControl>().canDrive = true;
+        }
+    }
 
     /// <summary>
     /// 자동차가 체크포인트 통과할 때 호출 (CheckpointSingle 에서 호출)

@@ -13,7 +13,7 @@ public class VehicleControl : MonoBehaviour
     public ControlMode controlMode = ControlMode.simple;
 
     public bool activeControl = false;
-    public bool waiting = true;
+    public bool canDrive = false;
     
 
     // Wheels Setting /////////////////////////////////
@@ -464,12 +464,7 @@ public class VehicleControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*
-        if (waiting)
-        {
-            return;
-        }
-        */
+
         // speed of car
         speed = myRigidbody.velocity.magnitude * 2.7f;
 
@@ -494,8 +489,8 @@ public class VehicleControl : MonoBehaviour
 
 
 
-
-        if (activeControl)
+        //조종간
+        if (activeControl && canDrive)
         {
 
             if (controlMode == ControlMode.simple)
@@ -505,7 +500,6 @@ public class VehicleControl : MonoBehaviour
                 accel = 0;
                 brake = false;
                 shift = false;
-
                 if (carWheels.wheels.frontWheelDrive || carWheels.wheels.backWheelDrive)
                 {
                     steer = Mathf.MoveTowards(steer, Input.GetAxis("Horizontal"), 0.2f);
@@ -526,9 +520,14 @@ public class VehicleControl : MonoBehaviour
             }
 
         }
+        else if(!activeControl && canDrive)
+        {
+           
+            //수정 예정: AI 컨트롤러 적용
+
+        }
         else
         {
-            //수정 예정: AI 컨트롤러 적용
             accel = 0.0f;
             steer = 0.0f;
             brake = false;

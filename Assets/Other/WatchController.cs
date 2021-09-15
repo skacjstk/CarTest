@@ -9,7 +9,8 @@ public class WatchController : MonoBehaviour
 {
     public Text[] watch;
 
-    public event EventHandler raceStartEvent;
+    public static event EventHandler RaceStartEvent;
+    public event EventHandler RaceEndEvent;
     private bool isRaceStart = false;
     public float startTime = 3;
     public float raceTime = 0;
@@ -35,7 +36,10 @@ public class WatchController : MonoBehaviour
             Racing();
         }
     }
-
+    /// <summary>
+    /// Start 시점에서 호출, 3,2,1 숫자 세고 땅 하기 직전까지 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PreRace()
     {
         while (startTime >= 0.0f)
@@ -56,6 +60,8 @@ public class WatchController : MonoBehaviour
     private void RaceStart()
     {
         isRaceStart = true;
+
+        RaceStartEvent?.Invoke(this, EventArgs.Empty);
     }
     private void Racing()
     {
@@ -67,6 +73,5 @@ public class WatchController : MonoBehaviour
         another = raceTime - (minute * 60 + second);
 
         watch[1].text = string.Format("{0:D2}:{1:D2}:{2:N0}", minute, second, another * 1000);
-
     }
 }
