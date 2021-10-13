@@ -1,0 +1,119 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ScoreBoardController : MonoBehaviour
+{
+    private Text[] scores;
+    private Image backGroundImage;
+    private int raceEndPlaceCheck;
+    private List<string> scoreList;
+
+    private Button mainBtn;
+    private Text btnText;
+
+    List<Transform> carTransformAnotherList;
+
+
+    private void Start()
+    {
+        scoreList = new List<string>();
+        carTransformAnotherList = new List<Transform>();
+        //현재 버그로 마지막 텍스트는 버튼의 텍스트
+
+        mainBtn = GetComponentInChildren<Button>();
+
+        mainBtn.gameObject.SetActive(false);
+        scores = GetComponentsInChildren<Text>();
+        for(int i=0; i<scores.Length; ++i)
+        {
+            scoreList.Add("Retire");
+        }
+        mainBtn.gameObject.SetActive(true);
+
+        btnText = mainBtn.GetComponentInChildren<Text>();
+        backGroundImage = GetComponentInChildren<Image>();
+        Debug.Log(scores.Length);
+        raceEndPlaceCheck = 0;
+        HideScoreBoard();
+    }
+    public void RaceEndScoreBoardShow()
+    {
+        ShowScoreBoard();
+        StringToText();
+        UserTimeSave();
+    }
+    //게임 종료시, 저장해뒀던 기록 정보를 scoreboard 로 전송
+    private void StringToText()
+    {
+        for(int i = 0; i < scores.Length; ++i)
+        {
+            scores[i].text = scoreList[i];
+        }
+    }
+
+    /// <summary>
+    /// 처음 타임랩스 체크가 완료되었을때 출력 
+    /// </summary>
+    /// <param name="raceTime"></param>
+    /// <param name="carTransform"></param>
+    /// <param name="carTransformList"></param>
+    public void RaceTimeAnyCast(float raceTime, Transform carTransform, List<Transform> carTransformList)
+    {
+        bool flag = true;
+        foreach(Transform carT in carTransformAnotherList)
+        {
+            if (carT == carTransform)
+                flag = false;                        
+        }
+        if (flag)
+        {
+            scoreList[raceEndPlaceCheck++] = textChange(raceTime);
+            carTransformAnotherList.Add(carTransform);
+        }
+    }
+    //float 을 기록에 맞는 text로 변환
+    private string textChange(float raceTime)
+    {
+        
+        int minute, second;
+        float another;
+        minute = (int)raceTime / 60;
+        second = (int)raceTime % 60;
+        another = raceTime - (minute * 60 + second);
+        
+        return string.Format("{0:D2}:{1:D2}:{2:N0}", minute, second, another * 1000);        
+    }
+    /// <summary>
+    /// 유저 기록 JSON 파일에 저장(다음 주)
+    /// </summary>
+    private void UserTimeSave()
+    {
+
+    }
+    public void MainLoad()
+    {
+        Debug.Log("메인메뉴로");
+    }
+
+    public void ShowScoreBoard()
+    {
+        for (int i = 0; i < scores.Length; ++i)
+        {
+            scores[i].enabled = true;
+        }
+        mainBtn.gameObject.SetActive(true);
+        backGroundImage.enabled = true;
+
+    }
+    private void HideScoreBoard()
+    {
+        for (int i = 0; i < scores.Length; ++i)
+        {
+            scores[i].enabled = false;
+        }
+        mainBtn.gameObject.SetActive(false);
+        backGroundImage.enabled = false;
+    }
+}

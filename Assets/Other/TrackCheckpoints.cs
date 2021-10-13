@@ -48,11 +48,16 @@ public class TrackCheckpoints : MonoBehaviour
 
 
     }
+    private void SendNextCheckpointSInglePos(Transform carTransform, int currentIndex)
+    {
+        carTransform.GetComponent<VehicleControl>().checkpointSinglePos = checkpointSingleList[currentIndex].transform.position;
+    }
     private void WatchController_CanCarRaceStart(object sender, EventArgs e)
     {
         foreach (Transform carTransform in carTransformList)
         {
-            carTransform.GetComponent<VehicleControl>().canDrive = true;
+            carTransform.GetComponent<VehicleControl>().SetCanDrive(true);
+            SendNextCheckpointSInglePos(carTransform, 0);
         }
     }
     /// <summary>
@@ -62,10 +67,13 @@ public class TrackCheckpoints : MonoBehaviour
     private void RaceEndTimeCheck(Transform carTransform)
     {
         carTransform.GetComponent<VehicleControl>().activeControl = false;
-
         raceTimeList[carTransformList.IndexOf(carTransform)] = watchController.GetRaceTime();
 
         Debug.Log("주행 기록:" + raceTimeList[carTransformList.IndexOf(carTransform)]);
+        watchController.RaceTimeAnyCast(raceTimeList[carTransformList.IndexOf(carTransform)], carTransform, carTransformList);
+        //스코어보드 보여주기 및 시간정지 
+        if(carTransform.GetComponent<VehicleControl>().controlMode != ControlMode.AI)
+            watchController.RaceEnd();
     }
 
     /// <summary>
@@ -78,19 +86,29 @@ public class TrackCheckpoints : MonoBehaviour
     public void CarThroughCheckpoint(CheckpointSingle checkpointSingle, Transform carTransform)
     {           //Ctrl + R 로 일괄적용
         int nextCheckpointSingleIndex = nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)];
- //       Debug.Log(checkpointSingleList.IndexOf(checkpointSingle));
+        //       Debug.Log(checkpointSingleList.IndexOf(checkpointSingle));
 
-        if(checkpointSingleList.IndexOf(checkpointSingle) == nextCheckpointSingleIndex)
+
+        if (checkpointSingleList.IndexOf(checkpointSingle) == nextCheckpointSingleIndex)
         {
             //Correct checkpoint
            // Debug.Log("맞음");
-            OnPlayerCorretCheckpoint?.Invoke(this, EventArgs.Empty);
             CheckpointSingle correctCheckpointSingle = checkpointSingleList[nextCheckpointSingleIndex];
-            correctCheckpointSingle.Hide();
 
-            //모든 리스트를 돌고 나면 0으로 초기화 
+            //오직 UI를 위한 기능, AI가 아닐 때만
+            if (carTransform.GetComponent<VehicleControl>().controlMode != ControlMode.AI)
+            {
+                OnPlayerCorretCheckpoint?.Invoke(this, EventArgs.Empty);
+                correctCheckpointSingle.Hide();
+            }
+            //모든 리스트를 돌고 나면 0으로 초기화             
             nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]
                 = (nextCheckpointSingleIndex + 1) % checkpointSingleList.Count;
+
+            SendNextCheckpointSInglePos(carTransform, nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]);
+
+            //걍 클리어해버리기(디버그 모드)
+            RaceEndTimeCheck(carTransform);
 
             //0이 될 경우 laps + 1 (한 바퀴 완료한 것으로 판단)
             if(nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)] == 0)
@@ -104,17 +122,20 @@ public class TrackCheckpoints : MonoBehaviour
                     RaceEndTimeCheck(carTransform);
                 }
             }
-
-            
         }
         else
         {
             //Wrong checkpoint
           //  Debug.Log("틀림");
-            OnPlayerWrongCheckpoint?.Invoke(this, EventArgs.Empty);
-
             CheckpointSingle correctCheckpointSingle = checkpointSingleList[nextCheckpointSingleIndex];
-            correctCheckpointSingle.Show();
+            //AI가 아닐 때만 
+            //오직 UI를 위한 기능
+            if (carTransform.GetComponent<VehicleControl>().controlMode != ControlMode.AI)
+            {
+                OnPlayerWrongCheckpoint?.Invoke(this, EventArgs.Empty);
+                correctCheckpointSingle.Show();
+            }
+   
         }
     }
 }

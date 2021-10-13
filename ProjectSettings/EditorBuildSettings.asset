@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Other/Scenes/Lobby.unity
+    guid: 8c1e8401a982c1241b6410ff30197ca2
+  - enabled: 1
+    path: Assets/RCK 2.3/Scenes/CarMap1_1.unity
+    guid: 7aadb93ad643ae648ba05d125a0e02b5
   m_configObjects: {}

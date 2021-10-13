@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public enum ControlMode { simple = 1, touch = 2 }
+public enum ControlMode { simple = 1, touch = 2, AI = 3 }
 
 
 public class VehicleControl : MonoBehaviour
 {
 
-
+    //나중에 수정필요 플레이어 제외하고 AI로 부여해야 함
     public ControlMode controlMode = ControlMode.simple;
 
     public bool activeControl = false;
-    public bool canDrive = false;
-    
+    private bool canDrive = false;
+
+    // AI 일 경우 필요한 변수 목록///////////
+    public Vector3 checkpointSinglePos;
 
     // Wheels Setting /////////////////////////////////
 
@@ -26,7 +28,8 @@ public class VehicleControl : MonoBehaviour
         public ConnectWheel wheels;
         public WheelSetting setting;
     }
-
+      
+    
 
     [System.Serializable]
     public class ConnectWheel
@@ -127,7 +130,10 @@ public class VehicleControl : MonoBehaviour
 
     }
 
-    
+
+    public float AIFirst;
+    public float AILast;
+    public float NoramlSpeed;
 
 
     [System.Serializable]
@@ -326,7 +332,12 @@ public class VehicleControl : MonoBehaviour
 
 
 
-    }
+        
+        AILast = carSetting.LimitForwardSpeed;
+        AIFirst = carSetting.LimitForwardSpeed;
+        NoramlSpeed = carSetting.LimitForwardSpeed;
+
+    }//end awake
 
 
 
@@ -436,10 +447,11 @@ public class VehicleControl : MonoBehaviour
 
 
 
-    
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     void Update()
     {
@@ -518,12 +530,13 @@ public class VehicleControl : MonoBehaviour
                 steer = Mathf.MoveTowards(steer, steerAmount, 0.07f);
 
             }
-
         }
-        else if(!activeControl && canDrive)
+        else if((controlMode == ControlMode.AI) && canDrive)
         {
-            //수정 예정: AI 컨트롤러 적용
-            
+            //수정 예정: AI 컨트롤러 적용. 지금은 정지 
+
+            AIControl();
+
         }
         else
         {
@@ -1015,7 +1028,7 @@ public class VehicleControl : MonoBehaviour
 
             carSounds.IdleEngine.volume = Mathf.Lerp(carSounds.IdleEngine.volume, 1.8f - Pitch, 0.1f);
 
-
+                                                                                        
             if ((Pitch > PitchDelay || accel > 0) && shiftTime == 0.0f)
             {
                 carSounds.LowEngine.volume = Mathf.Lerp(carSounds.LowEngine.volume, 0.0f, 0.2f);
@@ -1039,8 +1052,49 @@ public class VehicleControl : MonoBehaviour
     }
 
 
+    //포탈
+    void AIControl()
+    {
 
+        AISteer();
+        AIAccel();
+        AIAnalyze();
 
+        // Debug.Log("Accel: " + accel + "\tSteer" + steer);
+    }
+
+    /// <summary>
+    /// AI 주행용 세로와 가로
+    /// </summary>
+    private float vertical;
+    private float horizontal;
+    void AISteer()
+    {
+        float newSteer;
+        Vector3 relative = transform.InverseTransformPoint(checkpointSinglePos);
+        relative /= relative.magnitude;
+        newSteer = (relative.x / relative.magnitude) * carSetting.stiffness / 3;
+
+        steer = newSteer;        
+            
+    }
+    void AIAccel()
+    {        
+        float currentSteer = Mathf.Abs(steer);
+        float rightSpeed;
+        rightSpeed = speed / currentSteer;
+
+       if (speed > rightSpeed && speed > 10)
+           accel -= 0.075f;
+        else
+            accel = 0.2f;        
+    }
+    void AIAnalyze()
+    {
+    //    carSetting.LimitForwardSpeed = AIFirst;
+    //    carSetting.LimitForwardSpeed = AILast;
+    //    carSetting.LimitForwardSpeed = NoramlSpeed;
+    }
     /////////////// Show Normal Gizmos ////////////////////////////
 
     void OnDrawGizmos()
@@ -1059,6 +1113,8 @@ public class VehicleControl : MonoBehaviour
     }
 
 
-
-
+    public void SetCanDrive(bool setCanDrive)
+    {
+        canDrive = setCanDrive;
+    }
 }

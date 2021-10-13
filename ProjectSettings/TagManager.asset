@@ -7,6 +7,7 @@ TagManager:
   - Stone
   - Grass
   - Street
+  - TrackCheckpoints
   layers:
   - Default
   - TransparentFX
