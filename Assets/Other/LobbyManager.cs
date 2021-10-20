@@ -9,8 +9,10 @@ public class LobbyManager : MonoBehaviour
     private int currentUIDepth = 0;
     private int setupUIDepth = 0;
     private int removeUIDepth = 0;
-    private int currentOpeningMap = 0;
+    private int currentOpeningMapParam = 0;
+    private bool IsOpeningMap = false;
 
+   
     [System.Serializable]
     public struct UICollection
     {
@@ -24,19 +26,37 @@ public class LobbyManager : MonoBehaviour
         public Image plateImage;
         public Button[] mapBtns;
         public Button closeBtn;
+        public Text[] bestRecords;
     }
 
     public UICollection[] lobbyUI;
     public MapUICollection[] MapUI;
-    
+    public PlayerSaveDataManager obj;
 
-    void awake()
-    {
-        //JSON 파일 로딩 
-    }
+
     void Start()
     {
-        setupZeroDepth();
+        setupZeroDepth(); 
+        obj = FindObjectOfType<PlayerSaveDataManager>();
+        if (obj)
+            Debug.Log("세이브데이터 매니저 찾았음");
+        WriteRecord();
+    }
+    private void WriteRecord()
+    {
+        int pivot = 0;
+        string recordText;
+        for(int i = 0; i < MapUI.Length; ++i)
+        {
+            for (int j = 0; j < MapUI[i].bestRecords.Length; ++j)
+            {
+                recordText = FloatToString(obj.myPlayerData.playerRecordList[pivot++]);
+                Debug.Log("recrodText: " + recordText);
+                MapUI[i].bestRecords[j].text = MapUI[i].bestRecords[j].name +"\n"+ recordText;
+
+                
+            }
+        }
     }
     private void setupZeroDepth()
     {
@@ -67,16 +87,13 @@ public class LobbyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            currentUIDepth = Mathf.Clamp(--currentUIDepth, 0, lobbyUI.Length); // -1 ~ 3 사이의 값(그 범위를 넘어서지 않음)
+            PressESC();
         }
     }
     void FixedUpdate()
     {
-        Debug.Log(currentUIDepth);
-        //ESC 누를 때 각 동작
-
-       
-
+      //  Debug.Log(currentUIDepth);
+        //ESC 누를 때 각 동작      
         DepthBaseSetupUI();
         DepthBaseSetRemoveUI();
     }
@@ -106,7 +123,7 @@ public class LobbyManager : MonoBehaviour
     private bool IsQuit()
     {
         return true;
-       // Do you want Quit Game ?  (미완성)
+       // Do you want Quit Game ? UI출력 (미완성)
     }
     //1. 게임모드 선택
     //1-1. 게임모드 선택 UI 오픈, Play를 눌렀을 때
@@ -115,7 +132,7 @@ public class LobbyManager : MonoBehaviour
         currentUIDepth++;  //현재 UI깊이는 1
     }
     //버튼에 할당
-    //1-2. 버튼 클릭시 알맞은 파라미터와 함께 2단계 UI 출력
+    //1-2. 버튼 클릭시 알맞은 파라미터와 함께 2단계 선택한 게임모드에 대한 Map 출력
     public void SelectGameMode(int parameter)
     {
         switch (parameter)
@@ -131,10 +148,9 @@ public class LobbyManager : MonoBehaviour
 
         }
     }
-    //2. 선택된 게임모드에서 선택 가능한 맵 선택
+    //2. 선택된 게임모드에서 선택 가능한 맵 파라미터 전달 함수
     public void SelectMap(int parameter)
-    {
-      
+    {      
         switch (parameter)
         {
             case 0:
@@ -147,7 +163,7 @@ public class LobbyManager : MonoBehaviour
                 break;
         }
     }
-
+    //2-1. SelectMap()에서 받은 parameter 로 실제 Map선택UI 출력
     private void ShowMap(int parameter)
     {
         switch (parameter)
@@ -164,7 +180,8 @@ public class LobbyManager : MonoBehaviour
     }
     private void ShowMapUI(int parameter)
     {
-        currentOpeningMap = parameter;
+        currentOpeningMapParam = parameter;
+        IsOpeningMap = true;
         MapUI[parameter].plateImage.enabled = true;
         for (int j = 0; j < MapUI[parameter].mapBtns.Length; ++j)
         {
@@ -174,6 +191,7 @@ public class LobbyManager : MonoBehaviour
     }
     private void HideMapUI(int parameter)
     {
+        IsOpeningMap = false;
         MapUI[parameter].plateImage.enabled = false;
         for (int j = 0; j < MapUI[parameter].mapBtns.Length; ++j)
         {
@@ -188,10 +206,13 @@ public class LobbyManager : MonoBehaviour
     {
         switch (i)
         {
-            case 0: 
+            case 0:
+                obj.currentSelectedMapCode = i;
                 SceneManager.LoadScene("CarMap1_1");
                 break;
-            case 1: 
+            case 1:
+                obj.currentSelectedMapCode = i;
+                SceneManager.LoadScene("race_track_lake");
                 break;
             default:
                 break;
@@ -206,10 +227,36 @@ public class LobbyManager : MonoBehaviour
     }
     public void DepthCloseBtn()
     {
+        if(!IsOpeningMap)
         currentUIDepth = Mathf.Clamp(--currentUIDepth, 0, lobbyUI.Length); // -1 ~ 3 사이의 값(그 범위를 넘어서지 않음)
     }
     public void MapCloseBtn()
     {
-        HideMapUI(currentOpeningMap);
+        HideMapUI(currentOpeningMapParam);
+    }
+
+    private void PressESC()
+    {
+        if (IsOpeningMap)
+            MapCloseBtn();
+        else 
+            currentUIDepth = Mathf.Clamp(--currentUIDepth, 0, lobbyUI.Length); // -1 ~ 3 사이의 값(그 범위를 넘어서지 않음)
+    }
+
+    private string FloatToString(float raceTime)
+    {
+        //기록이 없는 상태를 -1로 기록했었음.
+        if(raceTime.CompareTo(-1.0f) == 0)
+        {
+            return "No Data";
+        }
+
+        int minute, second;
+        float another;
+        minute = (int)raceTime / 60;
+        second = (int)raceTime % 60;
+        another = raceTime - (minute * 60 + second);
+
+        return string.Format("{0:D2}:{1:D2}:{2:N0}", minute, second, another * 1000);
     }
 }

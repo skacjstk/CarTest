@@ -108,7 +108,7 @@ public class TrackCheckpoints : MonoBehaviour
             SendNextCheckpointSInglePos(carTransform, nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]);
 
             //걍 클리어해버리기(디버그 모드)
-          //  RaceEndTimeCheck(carTransform);
+            RaceEndTimeCheck(carTransform);
 
             //0이 될 경우 laps + 1 (한 바퀴 완료한 것으로 판단)
             if(nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)] == 0)

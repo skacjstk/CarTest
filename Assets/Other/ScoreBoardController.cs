@@ -11,9 +11,11 @@ public class ScoreBoardController : MonoBehaviour
     private int raceEndPlaceCheck;
     private List<string> scoreList;
 
+    private float raceTimeGotoSaveData;
     private Button mainBtn;
     private Text btnText;
 
+    public PlayerSaveDataManager obj;
     List<Transform> carTransformAnotherList;
     /*
      public String playerName; 
@@ -41,6 +43,9 @@ public class ScoreBoardController : MonoBehaviour
         Debug.Log(scores.Length);
         raceEndPlaceCheck = 0;
         HideScoreBoard();
+        obj = FindObjectOfType<PlayerSaveDataManager>();
+        if (obj)
+            Debug.Log("세이브데이터 매니저 찾았음");
     }
     public void RaceEndScoreBoardShow()
     {
@@ -80,7 +85,7 @@ public class ScoreBoardController : MonoBehaviour
     //float 을 기록에 맞는 text로 변환
     private string textChange(float raceTime)
     {
-        
+        raceTimeGotoSaveData = raceTime;
         int minute, second;
         float another;
         minute = (int)raceTime / 60;
@@ -94,12 +99,13 @@ public class ScoreBoardController : MonoBehaviour
     /// </summary>
     private void UserTimeSave()
     {
-
+        obj.NewRecordSave(raceTimeGotoSaveData);
     }
     public void MainLoad()
     {
         //기록 저장
         UserTimeSave();
+        Debug.Log("메인화면으로");
         SceneManager.LoadScene("Lobby");
     }
 

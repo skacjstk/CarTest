@@ -30,6 +30,7 @@ public class WatchController : MonoBehaviour
         }
         backGroundImage = GetComponentInChildren<Image>();
         scoreBoard = GetComponentInChildren<ScoreBoardController>();
+
         StartCoroutine("PreRace");
     }
 

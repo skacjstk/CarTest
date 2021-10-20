@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/RCK 2.3/Scenes/CarMap1_1.unity
     guid: 7aadb93ad643ae648ba05d125a0e02b5
+  - enabled: 1
+    path: Assets/race-track-lake/race_track_lake.unity
+    guid: 2e1336748f3797f4798cf9e588e2620f
   m_configObjects: {}
