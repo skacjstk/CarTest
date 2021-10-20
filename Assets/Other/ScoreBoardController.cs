@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreBoardController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class ScoreBoardController : MonoBehaviour
     private Text btnText;
 
     List<Transform> carTransformAnotherList;
+    /*
+     public String playerName; 
+     */
 
 
     private void Start()
@@ -28,7 +32,7 @@ public class ScoreBoardController : MonoBehaviour
         scores = GetComponentsInChildren<Text>();
         for(int i=0; i<scores.Length; ++i)
         {
-            scoreList.Add("Retire");
+            scoreList.Add("");      //빈 칸으로 초기화
         }
         mainBtn.gameObject.SetActive(true);
 
@@ -41,11 +45,11 @@ public class ScoreBoardController : MonoBehaviour
     public void RaceEndScoreBoardShow()
     {
         ShowScoreBoard();
-        StringToText();
-        UserTimeSave();
+        SendScoreBoard();
+        UserTimeSave();     //다음주 JSON 때 구현
     }
     //게임 종료시, 저장해뒀던 기록 정보를 scoreboard 로 전송
-    private void StringToText()
+    private void SendScoreBoard()
     {
         for(int i = 0; i < scores.Length; ++i)
         {
@@ -94,7 +98,9 @@ public class ScoreBoardController : MonoBehaviour
     }
     public void MainLoad()
     {
-        Debug.Log("메인메뉴로");
+        //기록 저장
+        UserTimeSave();
+        SceneManager.LoadScene("Lobby");
     }
 
     public void ShowScoreBoard()

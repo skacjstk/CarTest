@@ -13,7 +13,7 @@ public class TrackCheckpoints : MonoBehaviour
     private List<CheckpointSingle> checkpointSingleList;
     private List<int> nextCheckpointSingleIndexList;    //각 car 단위 다음 체크포인트 위치값 int List 
 
-    public int laps = 3;
+    public int laps = 2;
     //각 차량별 현재 laps
     private List<int> currentLapsList;
     private List<float> raceTimeList;
@@ -71,7 +71,7 @@ public class TrackCheckpoints : MonoBehaviour
 
         Debug.Log("주행 기록:" + raceTimeList[carTransformList.IndexOf(carTransform)]);
         watchController.RaceTimeAnyCast(raceTimeList[carTransformList.IndexOf(carTransform)], carTransform, carTransformList);
-        //스코어보드 보여주기 및 시간정지 
+        //스코어보드 보여주기 및 스톱워치 정지 (AI 가 아닐 경우)
         if(carTransform.GetComponent<VehicleControl>().controlMode != ControlMode.AI)
             watchController.RaceEnd();
     }
@@ -108,7 +108,7 @@ public class TrackCheckpoints : MonoBehaviour
             SendNextCheckpointSInglePos(carTransform, nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]);
 
             //걍 클리어해버리기(디버그 모드)
-            RaceEndTimeCheck(carTransform);
+          //  RaceEndTimeCheck(carTransform);
 
             //0이 될 경우 laps + 1 (한 바퀴 완료한 것으로 판단)
             if(nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)] == 0)
