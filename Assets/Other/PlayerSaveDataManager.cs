@@ -73,6 +73,14 @@ public class PlayerSaveDataManager : MonoBehaviour
 
         File.WriteAllText(path, json);
     }
+    public void Save()
+    {
+        string json = JsonUtility.ToJson(myPlayerData);
+
+        Debug.Log(json);
+
+        File.WriteAllText(path, json);
+    }
     void NewSave(string fileName, string path)
     {
         myPlayerData.playerRecordList = new List<float>();

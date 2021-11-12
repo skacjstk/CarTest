@@ -9384,7 +9384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46321ada772845a448ee0e8149ea65c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laps: 3
+  laps: 2
   carTransformList:
   - {fileID: 874260022}
   watchController: {fileID: 1667417599}
@@ -13332,10 +13332,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 295696118651205074, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 295696118651205078, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -13419,22 +13415,6 @@ PrefabInstance:
     - target: {fileID: 295696118651205078, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 295696118663412521, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 295696118975967601, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 295696119519728268, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 295696119935400672, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 295696119935400678, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
       propertyPath: trackCheckpoints

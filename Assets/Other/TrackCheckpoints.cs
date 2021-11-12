@@ -101,14 +101,14 @@ public class TrackCheckpoints : MonoBehaviour
                 OnPlayerCorretCheckpoint?.Invoke(this, EventArgs.Empty);
                 correctCheckpointSingle.Hide();
             }
-            //모든 리스트를 돌고 나면 0으로 초기화             
+            //다음에 가야할 위치 번호 갱신, 모든 리스트를 돌고 나면 0으로 초기화             
             nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]
                 = (nextCheckpointSingleIndex + 1) % checkpointSingleList.Count;
 
             SendNextCheckpointSInglePos(carTransform, nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)]);
 
             //걍 클리어해버리기(디버그 모드)
-            RaceEndTimeCheck(carTransform);
+            //RaceEndTimeCheck(carTransform);
 
             //0이 될 경우 laps + 1 (한 바퀴 완료한 것으로 판단)
             if(nextCheckpointSingleIndexList[carTransformList.IndexOf(carTransform)] == 0)

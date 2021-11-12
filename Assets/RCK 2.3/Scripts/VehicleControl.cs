@@ -131,9 +131,6 @@ public class VehicleControl : MonoBehaviour
     }
 
 
-    public float AIFirst;
-    public float AILast;
-    public float NoramlSpeed;
 
 
     [System.Serializable]
@@ -333,9 +330,6 @@ public class VehicleControl : MonoBehaviour
 
 
         
-        AILast = carSetting.LimitForwardSpeed;
-        AIFirst = carSetting.LimitForwardSpeed;
-        NoramlSpeed = carSetting.LimitForwardSpeed;
 
     }//end awake
 
@@ -533,7 +527,7 @@ public class VehicleControl : MonoBehaviour
         }
         else if((controlMode == ControlMode.AI) && canDrive)
         {
-            //수정 예정: AI 컨트롤러 적용. 지금은 정지 
+            //AI 컨트롤러 적용
 
             AIControl();
 
@@ -1058,9 +1052,8 @@ public class VehicleControl : MonoBehaviour
 
         AISteer();
         AIAccel();
-        AIAnalyze();
+      //  AIAnalyze();
 
-        // Debug.Log("Accel: " + accel + "\tSteer" + steer);
     }
 
     /// <summary>
@@ -1073,27 +1066,36 @@ public class VehicleControl : MonoBehaviour
         float newSteer;
         Vector3 relative = transform.InverseTransformPoint(checkpointSinglePos);
         relative /= relative.magnitude;
-        newSteer = (relative.x / relative.magnitude) * carSetting.stiffness / 3;
-
+        newSteer = (relative.x / relative.magnitude) * carSetting.stiffness;
+        newSteer = Mathf.Clamp(newSteer, -1.0f, 1.0f);
         steer = newSteer;        
             
     }
     void AIAccel()
-    {        
+    {
         float currentSteer = Mathf.Abs(steer);
-        float rightSpeed;
-        rightSpeed = speed / currentSteer;
-
-       if (speed > rightSpeed && speed > 10)
-           accel -= 0.075f;
+        if (Mathf.Approximately(currentSteer, 1.0f) && speed > 70 ){
+            accel = Mathf.Lerp(accel, -1.0f, 0.15f); 
+        }
         else
-            accel = 0.2f;        
+            accel = 1.0f;
     }
+    /*
+    float currentSteer = Mathf.Abs(steer);
+    float rightSpeed;
+    rightSpeed = speed / currentSteer;
+
+    if (speed > rightSpeed && speed > 60)
+        accel = -1.0f;
+    else
+        accel = 1.0f;   
+    */
+
     void AIAnalyze()
     {
-    //    carSetting.LimitForwardSpeed = AIFirst;
-    //    carSetting.LimitForwardSpeed = AILast;
-    //    carSetting.LimitForwardSpeed = NoramlSpeed;
+       
+        if (Mathf.Approximately(Mathf.Abs(steer), 1.0f))
+            Debug.Log("Accel: " + accel + "\tSteer" + steer);
     }
     /////////////// Show Normal Gizmos ////////////////////////////
 

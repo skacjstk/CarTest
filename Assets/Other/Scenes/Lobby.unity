@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 435816667}
   - component: {fileID: 435816666}
   m_Layer: 5
-  m_Name: DesertText
+  m_Name: Badlands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Desert
+  m_Text: 'Badlands
 
     Record: 000:00:000'
 --- !u!222 &435816667
@@ -1668,6 +1668,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc403be331caed4cac3d046938a6b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSelectedMapCode: 0
+  myPlayerData:
+    playerRecordList: []
 --- !u!1 &1128470655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,6 +1722,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c22bc11fecd984799bc03bed07d610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bestRecords:
+  - {fileID: 435816666}
+  - {fileID: 2017697308}
   lobbyUI:
   - plateImage: {fileID: 1163065488}
     plateBtns:
@@ -1735,12 +1741,11 @@ MonoBehaviour:
     mapBtns:
     - {fileID: 1556943777}
     closeBtn: {fileID: 1821563851}
-    bestRecords: []
   - plateImage: {fileID: 607365105}
     mapBtns:
     - {fileID: 977207266}
     closeBtn: {fileID: 1821563851}
-    bestRecords: []
+  obj: {fileID: 0}
 --- !u!1 &1163065486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,7 +2330,7 @@ GameObject:
   - component: {fileID: 1556943778}
   - component: {fileID: 1556943777}
   m_Layer: 5
-  m_Name: DesertMapBtn
+  m_Name: BadlandsMapBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2918,7 +2923,7 @@ GameObject:
   - component: {fileID: 2017697309}
   - component: {fileID: 2017697308}
   m_Layer: 5
-  m_Name: LakeText
+  m_Name: Lake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

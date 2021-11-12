@@ -26,8 +26,9 @@ public class LobbyManager : MonoBehaviour
         public Image plateImage;
         public Button[] mapBtns;
         public Button closeBtn;
-        public Text[] bestRecords;
     }
+
+    public Text[] bestRecords;
 
     public UICollection[] lobbyUI;
     public MapUICollection[] MapUI;
@@ -46,16 +47,11 @@ public class LobbyManager : MonoBehaviour
     {
         int pivot = 0;
         string recordText;
-        for(int i = 0; i < MapUI.Length; ++i)
+        for(int i = 0; i < bestRecords.Length; ++i)
         {
-            for (int j = 0; j < MapUI[i].bestRecords.Length; ++j)
-            {
-                recordText = FloatToString(obj.myPlayerData.playerRecordList[pivot++]);
-                Debug.Log("recrodText: " + recordText);
-                MapUI[i].bestRecords[j].text = MapUI[i].bestRecords[j].name +"\n"+ recordText;
-
-                
-            }
+           recordText = FloatToString(obj.myPlayerData.playerRecordList[pivot++]);
+           Debug.Log("recrodText: " + recordText);
+           bestRecords[i].text = bestRecords[i].name + "\n" + recordText;       
         }
     }
     private void setupZeroDepth()
@@ -216,13 +212,13 @@ public class LobbyManager : MonoBehaviour
                 break;
             default:
                 break;
-
         }
     }
 
     public void GameExit()
     {
         Debug.LogWarning("quit 호출됨: 에디터 상에서 무시");
+        obj.Save();
         Application.Quit(0);
     }
     public void DepthCloseBtn()
