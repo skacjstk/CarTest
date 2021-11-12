@@ -846,7 +846,6 @@ public class VehicleControl : MonoBehaviour
                             }
                             else if (Particle[currentWheel].GetComponent<AudioSource>().clip != carSetting.hitGround[i].groundSound && !Particle[currentWheel].GetComponent<AudioSource>().isPlaying)
                             {
-
                                 Particle[currentWheel].GetComponent<AudioSource>().clip = carSetting.hitGround[i].groundSound;
                             }
 
@@ -873,14 +872,14 @@ public class VehicleControl : MonoBehaviour
                     }
                     else if ((brake || Mathf.Abs(hit.sidewaysSlip) > 0.6f) && speed > 1)
                     {
-
+                        //실질적인 brake 볼륨 조절하는 위치
                         if ((accel < 0.0f) || ((brake || Mathf.Abs(hit.sidewaysSlip) > 0.6f) && (w == wheels[2] || w == wheels[3])))
                         {
 
                             if (!Particle[currentWheel].GetComponent<AudioSource>().isPlaying)
                                 Particle[currentWheel].GetComponent<AudioSource>().Play();
                             pc.enableEmission = true;
-                            Particle[currentWheel].GetComponent<AudioSource>().volume = 10;
+                            Particle[currentWheel].GetComponent<AudioSource>().volume = 0.1f;
 
                         }
 

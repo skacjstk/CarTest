@@ -5050,8 +5050,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 186536, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Name
+      value: RallyCar
       objectReference: {fileID: 0}
     - target: {fileID: 400324, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
       propertyPath: m_RootOrder
@@ -5093,65 +5093,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 5490658, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: m_Mass
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 11462334, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: maxCollisionStrength
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.idleRPM
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.carPower
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.stiffness
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.shiftPower
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.shiftUpRPM
-      value: 4000
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.shiftDownRPM
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.automaticGear
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.maxSteerAngle
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carWheels.setting.Radius
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carWheels.setting.Weight
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carWheels.setting.Distance
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.showNormalGizmos
+    - target: {fileID: 400324, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489280, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
-      propertyPath: carSetting.LimitForwardSpeed
-      value: 110
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b82529e8ddfc06e4fb493d04ff82ec97, type: 3}
@@ -5976,6 +5920,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 295696118672905289, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696118672905289, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696118672905289, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
+      objectReference: {fileID: 0}
     - target: {fileID: 295696118715136991, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5984,6 +5940,90 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 252404707}
+    - target: {fileID: 295696119163132453, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119163132453, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119163132453, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -413
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119466441585, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119466441585, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119466441585, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119474900304, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119474900304, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119474900304, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119557021009, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119557021009, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119557021009, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119557021009, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119557021009, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119557021009, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119935400673, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119935400673, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119935400673, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119935400673, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119935400673, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -156.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 295696119935400673, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 149.88
+      objectReference: {fileID: 0}
     - target: {fileID: 295696119935400678, guid: 7e6d157defe3e914b82573fd004f678a, type: 3}
       propertyPath: trackCheckpoints
       value: 
